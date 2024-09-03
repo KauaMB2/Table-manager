@@ -1,0 +1,146 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color: rgb(60, 60, 60);
+  background-color: white;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --gray: rgb(220, 220, 220);
+  --white: #ffffff;
+}
+
+body{
+  padding: 0px;
+  margin: 0px;
+}
+
+#mainContainer{
+  display: grid;
+  padding: 0px;
+  margin: 0px;
+  grid-template-columns: 75% 25%;
+  height: 100vh;
+}
+.previewPanel{
+  position: relative;
+  background-image: url("./assets/images/previewBackground.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.tableContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: var(--gray);
+  border-radius: 5px;
+  width: 75%;
+  height: 250px;
+  border: 0.2px solid var(--gray);
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+.tableContainer-header{
+  background-color: var(--white);
+  height: 10%;
+  width: 98%;
+  padding: 1%;
+  border-radius: 5px 5px 0px 0px;
+}
+.tableContainer-header-title{
+  position: relative;
+  top: 50%;
+  font-size: 1rem;
+  transform: translateY(-50%);
+  padding: 0px;
+  margin: 0px;
+}
+.tableContainer-footer{
+  background-color: var(--white);
+  height: 10%;
+  width: 98%;
+  padding: 1%;
+  border-radius: 0px 0px 5px 5px;
+}
+
+.sidePanel{
+  position: relative;
+  box-shadow: 2px 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.collapsible {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--gray);
+  cursor: pointer;
+  padding: 4%;
+  width: 92%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 16px;
+}
+
+.collapsible-icon{
+  position: relative;
+  top: 50%;
+  transform: rotateY(-50%);
+  height: 100%;
+  width: 12px;
+}
+.collapsible-icon img{
+  width: 12px;
+  height: 12px;
+}
+
+
+.collapsible-title{
+  padding-left: 8px;
+  padding-right: 8px;
+  width: 100%;
+  position: relative;
+  left: 0px;
+}
+
+.sidePanel-title h2{
+  text-align: center;
+}
+
+.collapsible-title strong{
+  margin: 0px;
+  padding: 0px;
+}
+
+.collapsible-content input[type="text"]{
+  border: 1px solid gray;
+  height: 1.5rem;
+  width: 100%;
+  border-radius: 5px;
+}
+.collapsible-content input[type="text"]:focus{
+  transition: 0.4s;
+  border: 1px solid rgb(0, 140, 255);
+  outline: none;
+}
+
+.content {
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
+.collapsible-content{
+  padding: 10px;
+}
