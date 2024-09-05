@@ -66,34 +66,6 @@ button{
 }
 
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
-}
-
-th, td {
-  padding: 12px 15px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-th {
-  background-color: var(--primaryColor);
-  color: white;
-  font-weight: bold;
-  font-size: 1.2rem;
-}
-
-td {
-  background-color: #f9f9f9;
-  font-size: 1rem;
-  color: var(--textColor);
-}
-
-tr:hover td {
-  background-color: #f1f1f1;
-}
 
 .tableContainer-header{
   background-color: var(--white);
