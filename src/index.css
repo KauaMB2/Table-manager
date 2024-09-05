@@ -64,11 +64,27 @@ button{
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   overflow-x: auto;
 }
-
-
+th, td{
+  text-align: center;
+  width: auto;
+  width: 1000px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+thead{
+  background-color: var(--gray);
+}
+tbody{
+  background-color: var(--white);
+  margin-bottom: 1px;
+}
+table{
+  display: grid;
+  height: 100%;
+  grid-template-rows: 30% auto;
+}
 
 .tableContainer-header{
-  background-color: var(--white);
   height: 10%;
   width: 98%;
   padding: 1%;
@@ -83,7 +99,6 @@ button{
   margin: 0px;
 }
 .tableContainer-footer{
-  background-color: var(--white);
   height: 10%;
   width: 98%;
   padding: 1%;
@@ -147,7 +162,7 @@ button{
 }
 
 .collapsible-content input[type="text"]{
-  border: 1px solid gray;
+  border: 1px solid var(--gray);
   height: 1.5rem;
   width: 100%;
   border-radius: 5px;

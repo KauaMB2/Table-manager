@@ -9,12 +9,12 @@ const PreviewPanel = () => {
   const { currentTable, addColumn, removeColumn } = useContext(TablesContext)
   return (
     <section style={{color: textColor}}  className="previewPanel">
-        <div style={{ backgroundColor: secondaryColor}} className="tableContainer">
+        <div style={{ backgroundColor: primaryColor}} className="tableContainer">
           <header style={{ backgroundColor: primaryColor}} className="tableContainer-header">
             <h5 className="tableContainer-header-title">{currentTable.tableName}</h5>
           </header>
-          <table>
-            <thead>
+          <table style={{ backgroundColor: secondaryColor}}>
+            <thead style={{ backgroundColor: secondaryColor}}>
               <tr>
                 {
                   currentTable.content.map((column, index) => {
