@@ -3,7 +3,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color: rgb(60, 60, 60);
+  color: #3c3c3c;
   background-color: white;
 
   font-synthesis: none;
@@ -13,11 +13,23 @@
 
   --gray: rgb(220, 220, 220);
   --white: #ffffff;
+  --blue: rgb(0, 140, 255)
 }
 
 body{
   padding: 0px;
   margin: 0px;
+}
+
+button{
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: var(--white);
+  border: 1px solid var(--gray);
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 #mainContainer{
@@ -50,7 +62,39 @@ body{
   height: 250px;
   border: 0.2px solid var(--gray);
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  overflow-x: auto;
 }
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: var(--primaryColor);
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+td {
+  background-color: #f9f9f9;
+  font-size: 1rem;
+  color: var(--textColor);
+}
+
+tr:hover td {
+  background-color: #f1f1f1;
+}
+
 .tableContainer-header{
   background-color: var(--white);
   height: 10%;
@@ -72,6 +116,13 @@ body{
   width: 98%;
   padding: 1%;
   border-radius: 0px 0px 5px 5px;
+}
+
+.tableContainer-footer button{
+  float: left;
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
 }
 
 .sidePanel{
@@ -131,7 +182,7 @@ body{
 }
 .collapsible-content input[type="text"]:focus{
   transition: 0.4s;
-  border: 1px solid rgb(0, 140, 255);
+  border: 1px solid var(--blue);
   outline: none;
 }
 
@@ -143,4 +194,29 @@ body{
 
 .collapsible-content{
   padding: 10px;
+}
+
+.colorsDiv{
+  display: flex;
+  flex-direction: column;
+}
+.colorDiv{
+  margin-bottom: 0.7em;
+}
+
+.tableContainer-footer button:hover, .resetColorBtn:hover{
+  color: var(--white);
+  background-color: var(--blue);
+  transition: 0.2s;
+}
+
+.tableContainer-footer button:hover .addColumnIcon, .tableContainer-footer button:hover .removeColumnIcon {
+  filter: brightness(0) invert(1);
+  transition: 0.2s;
+}
+
+.addColumnIcon, .removeColumnIcon{
+  width: 1em;
+  height: 1em;
+  margin-right: 5px;
 }
