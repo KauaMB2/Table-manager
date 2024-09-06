@@ -56,13 +56,13 @@ button{
   left: 50%;
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
-  background-color: var(--gray);
   border-radius: 5px;
   width: 75%;
   height: 250px;
   border: 0.2px solid var(--gray);
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   overflow-x: auto;
+  overflow-y: hidden;
 }
 th, td{
   text-align: center;
@@ -71,17 +71,9 @@ th, td{
   padding-left: 10px;
   padding-right: 10px;
 }
-thead{
-  background-color: var(--gray);
-}
-tbody{
-  background-color: var(--white);
-  margin-bottom: 1px;
-}
-table{
-  display: grid;
-  height: 100%;
-  grid-template-rows: 30% auto;
+
+.table{
+  height: 95%;
 }
 
 .tableContainer-header{
@@ -90,6 +82,44 @@ table{
   padding: 1%;
   border-radius: 5px 5px 0px 0px;
 }
+
+.tableContainer-body {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  white-space: nowrap;
+}
+
+.tableContainer-body-columnName{
+  display: flex;
+  justify-content: space-between;
+  min-width: 200px;
+  padding: 10px;
+  font-weight: bold;
+}
+.arrowsDiv{
+  display: flex;
+  height: 100%;
+  height: 20%;
+}
+.arrowsDiv img{
+  cursor: pointer;
+}
+.tableContainer-body-content{
+  height: 100%;
+}
+
+.arrowsDiv img{
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.tableContainer-cell {
+  flex: 1;
+  text-align: center;
+}
+
 .tableContainer-header-title{
   position: relative;
   top: 50%;
@@ -98,6 +128,7 @@ table{
   padding: 0px;
   margin: 0px;
 }
+
 .tableContainer-footer{
   height: 10%;
   width: 98%;
@@ -142,7 +173,6 @@ table{
   width: 12px;
   height: 12px;
 }
-
 
 .collapsible-title{
   padding-left: 8px;
