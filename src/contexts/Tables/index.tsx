@@ -20,7 +20,7 @@ interface Table{
 const TablesContext=createContext<TablesProps>({} as TablesProps)//Cria contexto para Tables
 
 const TablesProvider=({ children }: { children: React.ReactNode })=>{//Cria o Provider do contexto
-    const [currentTable, setCurrentTable]=useState<Table>({tableName:"My Table", content: [[0, "Column 0", "To select and unselect a cell, you just need click in the wished cell and use side panel to modify the content.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"]]})
+    const [currentTable, setCurrentTable]=useState<Table>({tableName:"My Table", content: [[0, "Column 0", "To select and unselect a cell, you just need click in the wished cell and use side panel to modify the content."]]})
     const [currentId, setCurrentId]=useState<number>(-1)
     const amountOfTable=useRef<number>(0)
     const addColumn = ():void => {
