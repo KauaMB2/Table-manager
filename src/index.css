@@ -73,7 +73,9 @@ th, td{
 }
 
 .table{
+  position: relative;
   height: 95%;
+  z-index: 1;
 }
 
 .tableContainer-header{
@@ -94,9 +96,12 @@ th, td{
 .tableContainer-body-columnName{
   display: flex;
   justify-content: space-between;
-  min-width: 200px;
+  align-items: center;
+  min-width: 170px;
   padding: 10px;
   font-weight: bold;
+  font-size: 0.7rem;
+  border-right: 1px solid rgb(200, 200, 200);
 }
 .arrowsDiv{
   display: flex;
@@ -104,7 +109,13 @@ th, td{
   height: 20%;
 }
 .arrowsDiv img{
+  background-color: var(--white);
+  padding: 4px;
+  border-radius: 5px;
   cursor: pointer;
+}
+.arrowsDiv img:hover{
+  background-color: var(--gray);
 }
 .tableContainer-body-content{
   height: 100%;

@@ -8,7 +8,7 @@ import { TablesContext } from "../../contexts/Tables"
 const SidePanel = () => {
   const { isTitleShown, isColumnShown, isColorShown, toggleIsTitleShown, toggleIsColumnShown, toggleIsColorShown } = useContext(SidePanelContext)
   const { primaryColor, secondaryColor, textColor, setPrimaryColor, setSecondaryColor, setTextColor, resetColors } = useContext(ColorsContext)
-  const { currentTable, changeTableName } = useContext(TablesContext)
+  const { currentTable, currentId, changeTableName, handleCellModify } = useContext(TablesContext)
   const handlePrimaryColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPrimaryColor(event.target.value)
   }
@@ -21,6 +21,7 @@ const SidePanel = () => {
   const handleTableNameChange=(event: React.ChangeEvent<HTMLInputElement>)=>{
     changeTableName(event.target.value)
   }
+
   return (
     <aside className="sidePanel">
         <div className="sidePanel-title">
@@ -34,7 +35,12 @@ const SidePanel = () => {
         </CollapsibleContent>
         <Collapsible title="Visual" toggleStateFunction={toggleIsColumnShown} />
         <CollapsibleContent stateShownValue={isColumnShown}>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <label>Column title: </label>
+          <br/>
+          <input id="columnName" value={currentId !== -1 ? currentTable.content[currentId][1] : ""} onChange={handleCellModify} placeholder="Type the column name here..." type="text" />
+          <label>Cell content: </label>
+          <br/>
+          <input id="content" value={currentId !== -1 ? currentTable.content[currentId][2] : ""} onChange={handleCellModify} placeholder="Type the column name here..." type="text" />
         </CollapsibleContent>
         <Collapsible title="Color" toggleStateFunction={toggleIsColorShown} />
         <CollapsibleContent stateShownValue={isColorShown}>

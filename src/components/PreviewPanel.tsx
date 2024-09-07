@@ -9,7 +9,7 @@ import { TablesContext } from "../contexts/Tables"
 
 const PreviewPanel = () => {
   const { primaryColor, secondaryColor, textColor } = useContext(ColorsContext)
-  const { currentTable, addColumn, removeColumn } = useContext(TablesContext)
+  const { currentTable, addColumn, removeColumn, handleCellClick, swapCells } = useContext(TablesContext)
   return (
     <section style={{color: textColor}}  className="previewPanel">
         <div style={{ backgroundColor: primaryColor}} className="tableContainer">
@@ -21,15 +21,15 @@ const PreviewPanel = () => {
                 {
                   currentTable.content.map((column, index) => {
                     return (
-                      <div key={index} id={index.toString()} className="tableContainer-cell">
+                      <div onClick={handleCellClick} key={index} id={index.toString()} className="tableContainer-cell">
                         <div style={{ backgroundColor: secondaryColor}} className="tableContainer-body-columnName">
-                          <span>{column[0]}</span>
+                          <span>{column[1]}</span>
                           <div style={{ backgroundColor: secondaryColor}} className="arrowsDiv">
-                            <img width={18} height={18} src={arrowLeft} />
-                            <img width={18} height={18} src={arrowRight} />
+                            <img style={{ backgroundColor: primaryColor}} onClick={swapCells} id={index.toString()} className="arrowLeftDiv" width={15} height={15} src={arrowLeft} />
+                            <img style={{ backgroundColor: primaryColor}} onClick={swapCells} id={index.toString()} className="arrowRightDiv" width={15} height={15} src={arrowRight} />
                           </div>
                         </div>
-                        <div style={{ backgroundColor: primaryColor}} className="tableContainer-body-content">{column[1]}</div>
+                        <div style={{ backgroundColor: primaryColor}} className="tableContainer-body-content">{column[2]}</div>
                       </div>
                     )
                   })
