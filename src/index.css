@@ -62,7 +62,8 @@ button{
   border: 0.2px solid var(--gray);
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: auto;
+  background-color: var(--white);
 }
 th, td{
   text-align: center;
@@ -73,9 +74,7 @@ th, td{
 }
 
 .table{
-  position: relative;
   height: 95%;
-  z-index: 1;
 }
 
 .tableContainer-header{
@@ -83,6 +82,7 @@ th, td{
   width: 98%;
   padding: 1%;
   border-radius: 5px 5px 0px 0px;
+  background-color: var(--white);
 }
 
 .tableContainer-body {
@@ -91,6 +91,7 @@ th, td{
   width: 100%;
   height: 100%;
   white-space: nowrap;
+  background-color: var(--white);
 }
 
 .tableContainer-body-columnName{
@@ -101,8 +102,11 @@ th, td{
   padding: 10px;
   font-weight: bold;
   font-size: 0.7rem;
+  background-color: var(--gray);
   border-right: 1px solid rgb(200, 200, 200);
 }
+
+
 .arrowsDiv{
   display: flex;
   height: 100%;
@@ -114,11 +118,15 @@ th, td{
   border-radius: 5px;
   cursor: pointer;
 }
-.arrowsDiv img:hover{
-  background-color: var(--gray);
-}
+
 .tableContainer-body-content{
   height: 100%;
+  padding-left: 2px;
+  padding-right: 2px;
+  font-size: 0.8rem;
+  white-space: normal; /* Allows text to wrap */
+  word-break: break-word; /* Breaks long words if necessary */
+  text-overflow: ellipsis;
 }
 
 .arrowsDiv img{
@@ -128,6 +136,7 @@ th, td{
 
 .tableContainer-cell {
   flex: 1;
+  height: 74%;
   text-align: center;
 }
 
@@ -145,6 +154,7 @@ th, td{
   width: 98%;
   padding: 1%;
   border-radius: 0px 0px 5px 5px;
+  background-color: var(--white);
 }
 
 .tableContainer-footer button{

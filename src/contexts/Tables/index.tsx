@@ -20,7 +20,7 @@ interface Table{
 const TablesContext=createContext<TablesProps>({} as TablesProps)//Cria contexto para Tables
 
 const TablesProvider=({ children }: { children: React.ReactNode })=>{//Cria o Provider do contexto
-    const [currentTable, setCurrentTable]=useState<Table>({tableName:"My Table", content: [[0, "Column 0", "AA"]]})
+    const [currentTable, setCurrentTable]=useState<Table>({tableName:"My Table", content: [[0, "Column 0", "To select and unselect a cell, you just need click in the wished cell and use side panel to modify the content.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"]]})
     const [currentId, setCurrentId]=useState<number>(-1)
     const amountOfTable=useRef<number>(0)
     const addColumn = ():void => {
@@ -28,11 +28,12 @@ const TablesProvider=({ children }: { children: React.ReactNode })=>{//Cria o Pr
         setCurrentTable((prevTable) => {
             return {
                 ...prevTable,
-                content: [...prevTable.content, [amountOfTable.current, `Column ${amountOfTable.current}`, "AA"]]
+                content: [...prevTable.content, [amountOfTable.current, `Column ${amountOfTable.current}`, ""]]
             }
         })
     }
     const swapCells=(event:React.MouseEvent<HTMLDivElement>):void=>{
+        event.stopPropagation()
         const target:HTMLDivElement = event.currentTarget as HTMLDivElement
         const id:number=parseInt(target.id)
         const className:string=target.className
@@ -58,6 +59,7 @@ const TablesProvider=({ children }: { children: React.ReactNode })=>{//Cria o Pr
                     content: newContent
                 }
             })
+            setCurrentId(-1)
         }else if(className==="arrowRightDiv"){
             const rightElement:[number, string, string] = currentTable.content[id+1]
             const temp:[number, string, string] = currentTable.content[id]
@@ -80,8 +82,8 @@ const TablesProvider=({ children }: { children: React.ReactNode })=>{//Cria o Pr
                     content: newContent
                 }
             })
+            setCurrentId(-1)
         }
-        setCurrentId(id)
     }
 
     const handleCellModify = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -92,11 +94,17 @@ const TablesProvider=({ children }: { children: React.ReactNode })=>{//Cria o Pr
             const newContent = [...prevTable.content] as Array<[number, string, string]>
             switch (id) {
                 case "columnName":
+                    if(target.value.length>16){
+                        return prevTable
+                    }
                     if (currentId !== -1) {
                         newContent[currentId] = [newContent[currentId][0], target.value, newContent[currentId][2]]
                     }
                     break
                 case "content":
+                    if(target.value.length>160){
+                        return prevTable
+                    }
                     if (currentId !== -1) {
                         newContent[currentId] = [newContent[currentId][0], newContent[currentId][1], target.value]
                     }
@@ -137,6 +145,9 @@ const TablesProvider=({ children }: { children: React.ReactNode })=>{//Cria o Pr
 
     const changeTableName = (newName:string):void => {
         setCurrentTable((prevTable) => {
+            if(newName.length>25){
+                return prevTable
+            }
             return {
                 ...prevTable, tableName:newName
             }
