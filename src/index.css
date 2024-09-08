@@ -13,7 +13,7 @@
 
   --gray: rgb(220, 220, 220);
   --white: #ffffff;
-  --blue: rgb(0, 140, 255)
+  --blue: rgb(0, 140, 255);
 }
 
 body{
@@ -61,16 +61,8 @@ button{
   height: 250px;
   border: 0.2px solid var(--gray);
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-  overflow-x: auto;
   overflow-y: auto;
   background-color: var(--white);
-}
-th, td{
-  text-align: center;
-  width: auto;
-  width: 1000px;
-  padding-left: 10px;
-  padding-right: 10px;
 }
 
 .table{
@@ -92,6 +84,8 @@ th, td{
   height: 100%;
   white-space: nowrap;
   background-color: var(--white);
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .tableContainer-body-columnName{
@@ -99,13 +93,16 @@ th, td{
   justify-content: space-between;
   align-items: center;
   min-width: 170px;
-  padding: 10px;
+  min-height: 43px;
   font-weight: bold;
   font-size: 0.7rem;
   background-color: var(--gray);
   border-right: 1px solid rgb(200, 200, 200);
 }
 
+.tableContainer-body-columnName span{
+  padding-left: 5px;
+}
 
 .arrowsDiv{
   display: flex;
@@ -330,7 +327,7 @@ th, td{
 
 .modal-header {
   padding: 10px 16px;
-  background-color: #5cb85c;
+  background-color: var(--blue);
   color: white;
   border-radius: 10px 10px 0px 0px;
 }
@@ -352,7 +349,7 @@ th, td{
   display: flex;
   justify-content: end;
   padding: 10px 16px;
-  background-color: #5cb85c;
+  background-color: var(--blue);
   color: white;
   border-radius: 0px 0px 10px 10px;
 }

@@ -1,4 +1,4 @@
-import { createContext, useRef, useState } from "react"
+import { createContext, useCallback, useRef, useState } from "react"
 
 interface TablesProps{//Cria uma interface que representa as props do Tables
     currentTable: Table
@@ -21,77 +21,54 @@ interface Table{
 
 const TablesContext=createContext<TablesProps>({} as TablesProps)//Cria contexto para Tables
 
-const TablesProvider=({ children }: { children: React.ReactNode })=>{//Cria o Provider do contexto
-    const [currentTable, setCurrentTable]=useState<Table>({tableName:"My Table", content: [[0, "Column 0", "To select and unselect a cell, you just need to click in the wished cell and use the side panel to modify the content."]]})
-    const [currentId, setCurrentId]=useState<number>(-1)
-    const [tablePreview, setTablePreview]=useState<boolean>(false)
-    const amountOfTable=useRef<number>(0)
-    const addColumn = ():void => {
-        amountOfTable.current++
-        setCurrentTable((prevTable) => {
-            return {
-                ...prevTable,
-                content: [...prevTable.content, [amountOfTable.current, `Column ${amountOfTable.current}`, ""]]
-            }
-        })
-    }
-    const handlePreviewClick=()=>{
-        setTablePreview(!tablePreview)
-        setCurrentId(-1)
-    }
-    const swapCells=(event:React.MouseEvent<HTMLDivElement>):void=>{
-        event.stopPropagation()
-        const target:HTMLDivElement = event.currentTarget as HTMLDivElement
-        const id:number=parseInt(target.id)
-        const className:string=target.className
-        if(className==="arrowLeftDiv"){
-            const leftElement:[number, string, string] = currentTable.content[id-1]
-            const temp:[number, string, string] = currentTable.content[id]
-            if(leftElement==undefined || temp==undefined){
-                return
-            }
-            const newContent:Array<[number, string, string]>=currentTable.content.map((currentCell, index)=>{
-                switch (index) {
-                    case id:
-                        return leftElement;
-                    case id - 1:
-                        return temp;
-                    default:
-                        return currentCell;
-                }
-            })
-            setCurrentTable((prevTable)=>{
-                return {
-                    ...prevTable,
-                    content: newContent
-                }
-            })
-            setCurrentId(-1)
-        }else if(className==="arrowRightDiv"){
-            const rightElement:[number, string, string] = currentTable.content[id+1]
-            const temp:[number, string, string] = currentTable.content[id]
-            if(rightElement==undefined || temp==undefined){
-                return
-            }
-            const newContent:Array<[number, string, string]>=currentTable.content.map((currentCell, index)=>{
-                switch (index) {
-                    case id:
-                        return rightElement;
-                    case id + 1:
-                        return temp;
-                    default:
-                        return currentCell;
-                }
-            })
-            setCurrentTable((prevTable)=>{
-                return {
-                    ...prevTable,
-                    content: newContent
-                }
-            })
-            setCurrentId(-1)
+const TablesProvider = ({ children }: { children: React.ReactNode }) => {
+    const [currentTable, setCurrentTable] = useState<Table>(
+        {
+            tableName: "My Table",
+            content: [
+                [0, "Column 0", "To select or unselect a cell, you just need to click in the wished cell and use the side panel to modify the content."]
+            ]
         }
-    }
+    )
+    const [currentId, setCurrentId] = useState<number>(-1)
+    const [tablePreview, setTablePreview] = useState<boolean>(false)
+    const amountOfTable = useRef<number>(0)
+    const addColumn = useCallback((): void => {
+        amountOfTable.current++
+        setCurrentTable((prevTable) => ({
+          ...prevTable,
+          content: [...prevTable.content, [amountOfTable.current, `Column ${amountOfTable.current}`, ""]]
+        }))
+    }, [])
+    const handlePreviewClick = useCallback((): void => {
+        setTablePreview((prev) => !prev)
+        setCurrentId(-1)
+      }, [])
+      const swapCells = useCallback((event: React.MouseEvent<HTMLDivElement>): void => {
+        event.stopPropagation()
+        const target = event.currentTarget as HTMLDivElement
+        const id = parseInt(target.id)
+        const className = target.className
+    
+        if (className === "arrowLeftDiv" && id > 0) {
+          setCurrentTable((prevTable) => {
+            const newContent: Array<[number, string, string]> = [...prevTable.content]
+            const temp = newContent[id]
+            newContent[id] = newContent[id - 1]
+            newContent[id - 1] = temp
+            return { ...prevTable, content: newContent }
+          });
+        } else if (className === "arrowRightDiv" && id < currentTable.content.length - 1) {
+          setCurrentTable((prevTable) => {
+            const newContent: Array<[number, string, string]> = [...prevTable.content]
+            const temp = newContent[id]
+            newContent[id] = newContent[id + 1]
+            newContent[id + 1] = temp
+            return { ...prevTable, content: newContent }
+          })
+        }
+        setCurrentId(-1)
+      }, [currentTable.content.length])
 
     const handleCellModify = (event: React.ChangeEvent<HTMLInputElement>): void => {
         const target: HTMLInputElement = event.currentTarget;
@@ -127,43 +104,30 @@ const TablesProvider=({ children }: { children: React.ReactNode })=>{//Cria o Pr
         })
     }    
 
-    const handleCellClick=(event:React.MouseEvent<HTMLDivElement>):void=>{
+    const handleCellClick = useCallback((event: React.MouseEvent<HTMLDivElement>): void => {
         const target = event.currentTarget as HTMLDivElement
-        const id:number=parseInt(target.id)
-        if(id!==currentId){
-            setCurrentId(id)
-        }else{
-            setCurrentId(-1)
-        }
-    }
+        const id = parseInt(target.id)
+        setCurrentId((prevId) => (id !== prevId ? id : -1))
+    }, [])
 
-    const removeColumn = ():void => {
-        console.log(currentId)
-        setCurrentTable((prevTable) => {
-            return {
-              ...prevTable,
-              content: prevTable.content.filter((_, index) =>(
-                index != currentId)
-                )
-            }
-        })
+    const removeColumn = useCallback((): void => {
+        setCurrentTable((prevTable) => ({
+          ...prevTable,
+          content: prevTable.content.filter((_, index) => index !== currentId)
+        }))
         setCurrentId(-1)
-    }
-
-    const handleTableNameChange = (event: React.ChangeEvent<HTMLInputElement>):void => {
+      }, [currentId])
+    
+      const handleTableNameChange = useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
         setCurrentTable((prevTable) => {
-            if(event.target.value.length>25){
-                return prevTable
-            }
-            return {
-                ...prevTable, tableName:event.target.value
-            }
+          if (event.target.value.length > 25) return prevTable
+          return { ...prevTable, tableName: event.target.value }
         })
-    }
+      }, [])
 
     return(// Retornar componente para renderizar os componentes filhos
         <TablesContext.Provider value={{ currentTable, currentId, tablePreview, addColumn, handleTableNameChange, removeColumn, setCurrentId, handleCellClick, swapCells, handleCellModify, handlePreviewClick }}>
-            <>{children}</> 
+            {children}
         </TablesContext.Provider>
     )
 }
