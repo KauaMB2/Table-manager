@@ -1,9 +1,8 @@
 import dropdownIcon from "./../../../assets/images/dropdownIcon.png"
 import visualIcon from "./../../../assets/images/visualIcon.png"
-import colorIcon from "./../../../assets/images/colorIcon.png"
 import titleIcon from "./../../../assets/images/titleIcon.png"
 
-type CollapsibleTitle = "Title" | "Visual" | "Color";
+type CollapsibleTitle = "Title" | "Visual"
 
 interface CollapsibleProps {
     title: CollapsibleTitle;
@@ -14,7 +13,6 @@ const Collapsible: React.FC<CollapsibleProps>=({title, toggleStateFunction})=> {
     const imageHashTable: Record<CollapsibleTitle, string> = {
         "Title": titleIcon,
         "Visual": visualIcon,
-        "Color": colorIcon
     }
     return (
         <div className="collapsible" onClick={toggleStateFunction}>

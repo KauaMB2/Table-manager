@@ -3,10 +3,12 @@ import { createContext, useRef, useState } from "react"
 interface TablesProps{//Cria uma interface que representa as props do Tables
     currentTable: Table
     currentId:number
+    tablePreview:boolean
     addColumn:()=>void
-    changeTableName:(value:string)=>void
+    handleTableNameChange:(event: React.ChangeEvent<HTMLInputElement>)=>void
     removeColumn:()=>void
     setCurrentId:(value:number)=>void
+    handlePreviewClick:()=>void
     handleCellClick:(event:React.MouseEvent<HTMLDivElement>)=>void
     swapCells:(event:React.MouseEvent<HTMLDivElement>)=>void
     handleCellModify:(event: React.ChangeEvent<HTMLInputElement>)=>void
@@ -20,8 +22,9 @@ interface Table{
 const TablesContext=createContext<TablesProps>({} as TablesProps)//Cria contexto para Tables
 
 const TablesProvider=({ children }: { children: React.ReactNode })=>{//Cria o Provider do contexto
-    const [currentTable, setCurrentTable]=useState<Table>({tableName:"My Table", content: [[0, "Column 0", "To select and unselect a cell, you just need click in the wished cell and use side panel to modify the content."]]})
+    const [currentTable, setCurrentTable]=useState<Table>({tableName:"My Table", content: [[0, "Column 0", "To select and unselect a cell, you just need to click in the wished cell and use the side panel to modify the content."]]})
     const [currentId, setCurrentId]=useState<number>(-1)
+    const [tablePreview, setTablePreview]=useState<boolean>(false)
     const amountOfTable=useRef<number>(0)
     const addColumn = ():void => {
         amountOfTable.current++
@@ -31,6 +34,10 @@ const TablesProvider=({ children }: { children: React.ReactNode })=>{//Cria o Pr
                 content: [...prevTable.content, [amountOfTable.current, `Column ${amountOfTable.current}`, ""]]
             }
         })
+    }
+    const handlePreviewClick=()=>{
+        setTablePreview(!tablePreview)
+        setCurrentId(-1)
     }
     const swapCells=(event:React.MouseEvent<HTMLDivElement>):void=>{
         event.stopPropagation()
@@ -143,19 +150,19 @@ const TablesProvider=({ children }: { children: React.ReactNode })=>{//Cria o Pr
         setCurrentId(-1)
     }
 
-    const changeTableName = (newName:string):void => {
+    const handleTableNameChange = (event: React.ChangeEvent<HTMLInputElement>):void => {
         setCurrentTable((prevTable) => {
-            if(newName.length>25){
+            if(event.target.value.length>25){
                 return prevTable
             }
             return {
-                ...prevTable, tableName:newName
+                ...prevTable, tableName:event.target.value
             }
         })
     }
 
     return(// Retornar componente para renderizar os componentes filhos
-        <TablesContext.Provider value={{ currentTable, currentId, addColumn, changeTableName, removeColumn, setCurrentId, handleCellClick, swapCells, handleCellModify }}>
+        <TablesContext.Provider value={{ currentTable, currentId, tablePreview, addColumn, handleTableNameChange, removeColumn, setCurrentId, handleCellClick, swapCells, handleCellModify, handlePreviewClick }}>
             <>{children}</> 
         </TablesContext.Provider>
     )
