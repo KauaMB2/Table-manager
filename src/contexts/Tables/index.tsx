@@ -26,7 +26,7 @@ const TablesProvider = ({ children }: { children: React.ReactNode }) => {
         {
             tableName: "My Table",
             content: [
-                [0, "Column 0", "To select or unselect a cell, you just need to click in the wished cell and use the side panel to modify the content."]
+                [0, "Column 0", "To select or unselect a cell, you just need to click in the wished cell. To modify the content or the column name, you must use the side panel."]
             ]
         }
     )
@@ -41,7 +41,9 @@ const TablesProvider = ({ children }: { children: React.ReactNode }) => {
         }))
     }, [])
     const handlePreviewClick = useCallback((): void => {
-        setTablePreview((prev) => !prev)
+        setTablePreview((prev) =>{
+          return !prev
+        })
         setCurrentId(-1)
       }, [])
       const swapCells = useCallback((event: React.MouseEvent<HTMLDivElement>): void => {
@@ -70,39 +72,21 @@ const TablesProvider = ({ children }: { children: React.ReactNode }) => {
         setCurrentId(-1)
       }, [currentTable.content.length])
 
-    const handleCellModify = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        const target: HTMLInputElement = event.currentTarget;
-        const id = target.id;
-        
+      const handleCellModify = useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
+        const target = event.currentTarget
+        const id = target.id
         setCurrentTable((prevTable) => {
-            const newContent = [...prevTable.content] as Array<[number, string, string]>
-            switch (id) {
-                case "columnName":
-                    if(target.value.length>16){
-                        return prevTable
-                    }
-                    if (currentId !== -1) {
-                        newContent[currentId] = [newContent[currentId][0], target.value, newContent[currentId][2]]
-                    }
-                    break
-                case "content":
-                    if(target.value.length>160){
-                        return prevTable
-                    }
-                    if (currentId !== -1) {
-                        newContent[currentId] = [newContent[currentId][0], newContent[currentId][1], target.value]
-                    }
-                    break
-                default:
-                    break
+          const newContent = [...prevTable.content]
+          if (currentId !== -1) {
+            if (id === "columnName" && target.value.length <= 16) {
+              newContent[currentId] = [newContent[currentId][0], target.value, newContent[currentId][2]]
+            } else if (id === "content" && target.value.length <= 160) {
+              newContent[currentId] = [newContent[currentId][0], newContent[currentId][1], target.value]
             }
-            
-            return {
-                ...prevTable,
-                content: newContent
-            }
+          }
+          return { ...prevTable, content: newContent }
         })
-    }    
+      }, [currentId])    
 
     const handleCellClick = useCallback((event: React.MouseEvent<HTMLDivElement>): void => {
         const target = event.currentTarget as HTMLDivElement
