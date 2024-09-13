@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useCallback, useContext, useState } from "react"
 import titleIcon from "./../../assets/images/titleIcon.png"
 import visualIcon from "./../../assets/images/visualIcon.png"
 import { TablesContext } from "../../contexts/Tables"
@@ -6,29 +6,30 @@ import Title from "../SidePanel/CollapsibleContent/Title"
 import Visual from "../SidePanel/CollapsibleContent/Visual"
 import Modal from "../Modal"
 
-const BottomBar = () => {
+const BottomBar:React.FC = () => {
     const { tablePreview }=useContext(TablesContext)
     const [ modalTitle, setModalTitle]=useState<string>("")
     const [ childComponent, setChildComponent]=useState<React.ReactNode>(null)
-    const handleButtonClick=(event:React.MouseEvent<HTMLDivElement>):void=>{
-        const target=event.currentTarget as HTMLDivElement
-        switch(target.id){
+    const handleButtonClick = useCallback((event: React.MouseEvent<HTMLDivElement>): void => {
+        const target:HTMLDivElement = event.currentTarget as HTMLDivElement
+        switch (target.id) {
             case "titleBottomButton":
                 setChildComponent(<Title />)
                 setModalTitle("Title")
-                break;
+                break
             case "visualBottomButton":
                 setChildComponent(<Visual />)
                 setModalTitle("Visual")
-                break;
+                break
             default:
-                break;
+                break
         }
-    }
-    const handleCloseModal=():void=>{
+      }, [])
+    
+      const handleCloseModal = useCallback((): void => {
         setModalTitle("")
         setChildComponent(null)
-    }
+      }, [])
     return (
         <>
             <Modal handleCloseModal={handleCloseModal} modalTitle={modalTitle}>

@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { TablesContext } from "../../../contexts/Tables"
-const Title=()=>{
+const Title:React.FC=()=>{
     const { currentTable, handleTableNameChange } = useContext(TablesContext)
     return (
         <div className="modifyTitleDiv">

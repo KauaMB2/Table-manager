@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { TablesContext } from "../../../contexts/Tables"
-const Visual=()=>{
+const Visual:React.FC=()=>{
     const { currentId, currentTable, handleCellModify } = useContext(TablesContext)
     return (
         <div className="modifyTitleDiv">
@@ -16,7 +16,7 @@ const Visual=()=>{
             <br/>
             <input disabled={currentId===-1 ? true : false} id="content" value={currentId !== -1 ? currentTable.content[currentId][2] : ""} onChange={handleCellModify} placeholder="Type the column name here..." type="text" />
             {
-                currentId !== -1 && currentTable.content[currentId][2].length === 160 && <small className="errorMessage">The cell content has a limit of 160 characters.</small>
+                currentId !== -1 && currentTable.content[currentId][2].length === 230 && <small className="errorMessage">The cell content has a limit of 230 characters.</small>
             }
         </div>
     )

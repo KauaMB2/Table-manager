@@ -7,7 +7,7 @@ interface SidePanelProps {
   toggleIsColumnShown: () => void
 }
 
-const SidePanelContext = createContext<SidePanelProps>({} as SidePanelProps)
+const SidePanelContext:React.Context<SidePanelProps> = createContext<SidePanelProps>({} as SidePanelProps)
 
 const SidePanelProvider = ({ children }: { children: React.ReactNode }) => {
   const [isTitleShown, setIsTitleShown] = useState<boolean>(false)

@@ -1,9 +1,9 @@
 import { useContext } from "react"
-import addColumnIcon from "./../assets/images/addColumnIcon.svg"
-import deleteColumnIcon from "./../assets/images/deleteColumnIcon.svg"
-import arrowLeft from "./../assets/images/arrowLeft.svg"
-import arrowRight from "./../assets/images/arrowRight.svg"
-import { TablesContext } from "../contexts/Tables"
+import addColumnIcon from "./../../assets/images/addColumnIcon.svg"
+import deleteColumnIcon from "./../../assets/images/deleteColumnIcon.svg"
+import arrowLeft from "./../../assets/images/arrowLeft.svg"
+import arrowRight from "./../../assets/images/arrowRight.svg"
+import { TablesContext } from "../../contexts/Tables"
 
 const styles = {
   secondaryColor:{
@@ -27,9 +27,9 @@ const PreviewPanel:React.FC = () => {
         </label>
       </div>
         <div className="tableContainer">
-          <header className="tableContainer-header">
+          <div className="tableContainer-header">
             <h5 className="tableContainer-header-title">{currentTable.tableName}</h5>
-          </header>
+          </div>
           <div className="table">
             <div className="tableContainer-body">
                 {
@@ -48,13 +48,12 @@ const PreviewPanel:React.FC = () => {
                     )
                   })
                 }
-                
             </div>
           </div>
-          <footer style={tablePreview ? {display: "none"} : {}} className="tableContainer-footer">
+          <div style={tablePreview ? {display: "none"} : {}} className="tableContainer-footer">
             <button disabled={currentId===-1 ? true : false} onClick={removeColumn}><img src={deleteColumnIcon} className="removeColumnIcon"/> Remove column</button>
             <button onClick={addColumn}><img src={addColumnIcon} className="addColumnIcon"/> Add column</button>
-          </footer>
+          </div>
         </div>
     </section>
   )

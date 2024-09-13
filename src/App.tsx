@@ -4,7 +4,7 @@ import SidePanel from './components/SidePanel'
 import { TablesContext } from "./contexts/Tables"
 import { useContext } from "react"
 
-const App=()=>{
+const App:React.FC=()=>{
   const { tablePreview }=useContext(TablesContext)
   return (
     <main style={tablePreview ? { gridTemplateColumns: "100%" } : {}} id="mainContainer">

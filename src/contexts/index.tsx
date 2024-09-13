@@ -9,6 +9,7 @@ const AppProvider=({ children }: {children: React.ReactNode})=>{
                 </TablesProvider>
             </SidePanelProvider>
     )
+    
 }
 
 export default AppProvider
