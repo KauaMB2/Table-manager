@@ -26,13 +26,14 @@ const TablesProvider = ({ children }: { children: React.ReactNode }) => {
         {
             tableName: "My Table",
             content: [
-                [0, "Column 0", "To select or unselect a cell, you just need to click in the wished cell. To modify the table name, cell content or the column name, you must use the side panel if you are in computer or the bottom buttons if you are in a mobile."]
+                [0, "Column 0", "To select or unselect a cell, you just need to click in the wished cell."],
+                [1, "Column 1", "To modify the table name, cell content or the column name, you must use the side panel if you are in computer or the bottom buttons if you are in a mobile."]
             ]
         }
     )
     const [currentId, setCurrentId] = useState<number>(-1)
     const [tablePreview, setTablePreview] = useState<boolean>(false)
-    const amountOfTable = useRef<number>(0)
+    const amountOfTable = useRef<number>(1)
     const addColumn = useCallback((): void => {
         amountOfTable.current++
         setCurrentTable((prevTable) => ({
@@ -79,7 +80,7 @@ const TablesProvider = ({ children }: { children: React.ReactNode }) => {
         if (currentId !== -1) {
           if (id === "columnName" && target.value.length <= 16) {
             newContent[currentId] = [newContent[currentId][0], target.value, newContent[currentId][2]]
-          } else if (id === "content" && target.value.length <= 230) {
+          } else if (id === "content" && target.value.length <= 160) {
             newContent[currentId] = [newContent[currentId][0], newContent[currentId][1], target.value]
           }
         }
